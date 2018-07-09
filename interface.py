@@ -4,6 +4,25 @@ Handling and verifying user input
 
 name_from_bool = ["noughts", "crosses"]
 
+state_from_string = {"_": None, 'x': True, 'o': False}
+
+def isqrt(n):
+    if n < 2:
+        return n
+    else:
+        smallCandidate = isqrt(n >> 2) << 1
+        largeCandidate = smallCandidate + 1
+        if largeCandidate ** 2 > n:
+            return smallCandidate
+        else:
+            return largeCandidate
+
+def parse_board(board):
+    b = [state_from_string[c] for c in board if c in state_from_string]
+    if isqrt(len(b)) ** 2 != len(b):
+        raise ValueError('The board must be square')
+    return b
+
 def get_pos(s):
     """
     Get position in 1d list from 2d coordinate reference
