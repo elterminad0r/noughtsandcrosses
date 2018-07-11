@@ -2,6 +2,10 @@
 Handling and verifying user input
 """
 
+from base import Win
+from formatting import print_board, syms
+from checking import is_run
+
 name_from_bool = ["noughts", "crosses"]
 
 state_from_string = {"_": None, 'x': True, 'o': False}
@@ -17,7 +21,16 @@ def isqrt(n):
         else:
             return largeCandidate
 
-def parse_board(board):
+def SquareInt(s):
+    """
+    Acts as a "parser" for perfect square integers for argparse
+    """
+    n = int(s)
+    if isqrt(n) ** 2 != n:
+        raise ValueError("{!r} is not a square number".format(s))
+    return n
+
+def SquareBoard(board):
     b = [state_from_string[c] for c in board if c in state_from_string]
     if isqrt(len(b)) ** 2 != len(b):
         raise ValueError('The board must be square')
@@ -47,3 +60,16 @@ def get_input(board, is_crosses):
             print(ve)
             continue
         return mov
+
+def do_player_move(board, is_crosses):
+    """
+    Execute player move - assumes board is valid at start of turn
+    """
+    print_board(board)
+    try:
+        pos = get_input(board, is_crosses)
+    except (KeyboardInterrupt, EOFError):
+        raise Win("{} wins because {} is a coward".format(syms[not is_crosses], syms[is_crosses]))
+    board[pos] = is_crosses
+    if is_run(board, pos):
+        raise Win("{} wins".format(syms[is_crosses]))

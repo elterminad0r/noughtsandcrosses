@@ -14,7 +14,7 @@ def strfboard(board):
     return BOARD_TEMP.format(*map(get_sym, board))
 
 def print_board(board):
-    print(strfboard(board))
+    print("{}\n".format(strfboard(board)))
 
 syms = "OX"
 

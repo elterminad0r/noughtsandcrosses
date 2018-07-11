@@ -1,12 +1,12 @@
 from enum import Enum
 
-class Win(Exception):
+class GameFinish(Exception):
     pass
 
-class Draw(Exception):
+class Win(GameFinish):
     pass
 
-class Resign(Exception):
+class Draw(GameFinish):
     pass
 
 class State(Enum):
@@ -14,5 +14,3 @@ class State(Enum):
     X_WIN = 1
     O_WIN = 2
     NEUTRAL = 3
-
-EMPTY_BOARD = [None] * 9
