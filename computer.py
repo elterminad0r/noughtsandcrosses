@@ -63,9 +63,9 @@ def evaluate_board(board, is_crosses, crosses_playing, verbose=False):
     if state == State.NEUTRAL:
         evaluations = (evaluate_board(board, is_crosses, not crosses_playing, verbose=verbose) for move, board in generate_moves(board, crosses_playing))
         if is_crosses ^ crosses_playing:
-            return minimise(evaluations, is_crosses)
-        else:
             return maximise(evaluations, is_crosses)
+        else:
+            return minimise(evaluations, is_crosses)
     else:
         verbose and print(indent("state here: {}".format(state), " " * len(extract_stack())))
         return state
@@ -94,7 +94,7 @@ def do_computer_move(board, is_crosses, verbose=False):
     print("Computer plays at ({}, {})".format(move % 3, move // 3))
     print_board(board)
     if is_run(board, move):
-        raise Win("I'm afraid I can't let you do that, Hal")
+        raise Win("I'm sorry, Dave. I'm afraid I can't do that.")
 
 if __name__ == "__main__":
     args = get_args()

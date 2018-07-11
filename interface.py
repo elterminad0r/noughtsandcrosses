@@ -69,7 +69,7 @@ def do_player_move(board, is_crosses):
     try:
         pos = get_input(board, is_crosses)
     except (KeyboardInterrupt, EOFError):
-        raise Win("{} wins because {} is a coward".format(syms[not is_crosses], syms[is_crosses]))
+        raise Win("\n{} wins because {} is a coward".format(syms[not is_crosses], syms[is_crosses]))
     board[pos] = is_crosses
     if is_run(board, pos):
         raise Win("{} wins".format(syms[is_crosses]))

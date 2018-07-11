@@ -5,7 +5,7 @@ Play noughts and crosses
 from argparse import ArgumentParser
 from itertools import cycle, repeat
 
-from base import GameFinish
+from base import GameFinish, Draw
 from interface import SquareInt, do_player_move
 from computer import do_computer_move
 from formatting import print_board
