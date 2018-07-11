@@ -22,8 +22,8 @@ def get_args():
 
 state_from_bool = [State.O_WIN, State.X_WIN]
 
-def maximise(evaluations, is_crosses):
-    LOSE_STATE, WIN_STATE = state_from_bool[not is_crosses], state_from_bool[is_crosses]
+def optimise(evaluations, is_crosses, minimise):
+    LOSE_STATE, WIN_STATE = state_from_bool[minimise ^ (not is_crosses)], state_from_bool[minimise ^ is_crosses]
     draw_seen = False
     for e in evaluations:
         if e == LOSE_STATE:
@@ -33,18 +33,6 @@ def maximise(evaluations, is_crosses):
     if draw_seen:
         return State.DRAW
     return WIN_STATE
-
-def minimise(evaluations, is_crosses):
-    LOSE_STATE, WIN_STATE = state_from_bool[not is_crosses], state_from_bool[is_crosses]
-    draw_seen = False
-    for e in evaluations:
-        if e == WIN_STATE:
-            return e
-        elif e == State.DRAW:
-            draw_seen = True
-    if draw_seen:
-        return State.DRAW
-    return LOSE_STATE
 
 def generate_moves(board, is_crosses):
     broken = True
@@ -62,10 +50,7 @@ def evaluate_board(board, is_crosses, crosses_playing, verbose=False):
     state = get_state(board)
     if state == State.NEUTRAL:
         evaluations = (evaluate_board(board, is_crosses, not crosses_playing, verbose=verbose) for move, board in generate_moves(board, crosses_playing))
-        if is_crosses ^ crosses_playing:
-            return maximise(evaluations, is_crosses)
-        else:
-            return minimise(evaluations, is_crosses)
+        return optimise(evaluations, is_crosses, not crosses_playing ^ is_crosses)
     else:
         verbose and print(indent("state here: {}".format(state), " " * len(extract_stack())))
         return state
