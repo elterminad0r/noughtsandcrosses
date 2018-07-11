@@ -20,7 +20,6 @@ def _make_board_template(n):
     board. This is a lot easier and faster than dynamically generating all of
     the "structure" of the board every time.
     """
-    width = len(str(n - 1))
     return ("{}\n{}"
               .format("".join(map("{:4}".format, range(n))),
                   "  {}".format("+".join(["---"] * n))

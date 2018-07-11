@@ -17,12 +17,13 @@ def get_args():
 
 def _make_groups(n):
     """
-    This function should not be accessed directly - use get_groups.
-    Construct the list of "groups" present on the board - rows, columns,
-    diagonals. Return a list of lists of these groups, where indexing by board
-    position returns the list of groups that that position is contained in. This
-    is pretty memory-efficient as each actual list is only stored once, and the
-    remainder of the data structure is primarily pointers.
+    This function should not be accessed directly - use get_groups.  Construct
+    the list of "groups" present on the board - rows, columns, diagonals. Groups
+    are represented as Python ranges because they're all around suitable -
+    efficient, linear etc. Return a list of lists of these groups, where
+    indexing by board position returns the list of groups that that position is
+    contained in. This is pretty memory-efficient as each actual list is only
+    stored once, and the remainder of the data structure is primarily pointers.
     """
     rows = ([r for i in range(n)
                for r in [range(i * n, i * n + n), range(i, i + n ** 2, n)]]

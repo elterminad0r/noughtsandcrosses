@@ -101,6 +101,8 @@ def get_computer_move(board, is_crosses, n, verbose=False):
     - A drawing move
     - Any move (which will be a losing move)
     """
+    # optimisation: play here for an empty board, because searching through the
+    # whole board's tree is known to be unnecessary
     if all(i is None for i in board):
         return 0
     WIN_STATE = state_from_bool[is_crosses]
@@ -137,4 +139,4 @@ if __name__ == "__main__":
     n = isqrt(len(args.board))
     print(board, n)
     print_board(board, n)
-    do_computer_move(board, True, n)
+    do_computer_move(board, True, n, verbose=not args.quiet)
