@@ -1,0 +1,61 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+izaak\PYGZpc{}lu\PYGZhy{}tze|noughtsandcrosses/src git:(master) ✗  python checking.py 3
+0 [range(0, 3), range(0, 9, 3), range(0, 9, 4)]
+   0   1   2
+ 0 M | G | G
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+   0   1   2
+ 0 M |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 G |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 G |   |
+
+   0   1   2
+ 0 M |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   | G |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   | G
+
+1 [range(0, 3), range(1, 10, 3)]
+   0   1   2
+ 0 G | M | G
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+   0   1   2
+ 0   | M |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   | G |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   | G |
+
+2 [range(0, 3), range(2, 11, 3), range(2, 7, 2)]
+   0   1   2
+ 0 G | G | M
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+   0   1   2
+ 0   |   | M
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   | G
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   | G
+
+   0   1   2
+ 0   |   | M
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   | G |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 G |   |
+\end{Verbatim}

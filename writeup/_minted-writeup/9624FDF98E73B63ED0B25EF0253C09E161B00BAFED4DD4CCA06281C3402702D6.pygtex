@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGZpc{} python formatting.py 5
+5x5 template:
+   0   1   2   3   4
+ 0 \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{}
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{}
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{}
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 3 \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{}
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 4 \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{} | \PYGZob{}\PYGZcb{}
+
+random 5x5 board:
+   0   1   2   3   4
+ 0 X |   | X | X | X
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X | X | O | X |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   | X | X | O | O
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 3 X |   |   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 4 O | X | O | X | X
+\end{Verbatim}

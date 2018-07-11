@@ -1,0 +1,64 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Play noughts and crosses. Incorporates both human and computer players.}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+\PYG{k+kn}{from} \PYG{n+nn}{argparse} \PYG{k+kn}{import} \PYG{n}{ArgumentParser}
+\PYG{k+kn}{from} \PYG{n+nn}{itertools} \PYG{k+kn}{import} \PYG{n}{cycle}\PYG{p}{,} \PYG{n}{repeat}
+
+\PYG{k+kn}{from} \PYG{n+nn}{base} \PYG{k+kn}{import} \PYG{n}{GameFinish}\PYG{p}{,} \PYG{n}{Draw}
+\PYG{k+kn}{from} \PYG{n+nn}{interface} \PYG{k+kn}{import} \PYG{n}{do\PYGZus{}player\PYGZus{}move}
+\PYG{k+kn}{from} \PYG{n+nn}{computer} \PYG{k+kn}{import} \PYG{n}{do\PYGZus{}computer\PYGZus{}move} \PYG{k}{as} \PYG{n}{\PYGZus{}do\PYGZus{}computer\PYGZus{}move}
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}args}\PYG{p}{():}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Get configuration for the program. See the help text for details.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{parser} \PYG{o}{=} \PYG{n}{ArgumentParser}\PYG{p}{(}\PYG{n}{description}\PYG{o}{=}\PYG{n+nv+vm}{\PYGZus{}\PYGZus{}doc\PYGZus{}\PYGZus{}}\PYG{p}{)}
+    \PYG{n}{mode} \PYG{o}{=} \PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}mutually\PYGZus{}exclusive\PYGZus{}group}\PYG{p}{()}
+    \PYG{n}{mode}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}c\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}computer\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}play against computer opponent\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{mode}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}b\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}battle\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}computer plays against itself\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}headstart\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}start first when playing against computer\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}noughts\PYGZhy{}start\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}noughts to start instead of crosses\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}s\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}size\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{type}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{default}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}size of board to play on\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}v\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}verbose\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Show minmax thought process\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{parser}\PYG{o}{.}\PYG{n}{parse\PYGZus{}args}\PYG{p}{()}
+
+\PYG{k}{def} \PYG{n+nf}{play}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{players}\PYG{p}{,} \PYG{n}{noughts\PYGZus{}start}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Play a game of noughts and crosses until a finishing condition or a draw,}
+\PYG{l+s+sd}{    given an infinite iterable of players.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{is\PYGZus{}crosses} \PYG{o}{=} \PYG{o+ow}{not} \PYG{n}{noughts\PYGZus{}start}
+    \PYG{k}{try}\PYG{p}{:}
+        \PYG{k}{for} \PYG{n}{player} \PYG{o+ow}{in} \PYG{n}{players}\PYG{p}{:}
+            \PYG{n}{player}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{is\PYGZus{}crosses}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}
+            \PYG{n}{is\PYGZus{}crosses} \PYG{o}{=} \PYG{o+ow}{not} \PYG{n}{is\PYGZus{}crosses}
+            \PYG{k}{if} \PYG{n}{board}\PYG{o}{.}\PYG{n}{count}\PYG{p}{(}\PYG{n+nb+bp}{None}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+                \PYG{k}{raise} \PYG{n}{Draw}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Nobody wins!\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{except} \PYG{n}{GameFinish} \PYG{k}{as} \PYG{n}{gf}\PYG{p}{:}
+        \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZob{}\PYGZcb{}: \PYGZob{}\PYGZcb{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n+nb}{type}\PYG{p}{(}\PYG{n}{gf}\PYG{p}{)}\PYG{o}{.}\PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}}\PYG{p}{,} \PYG{n}{gf}\PYG{p}{))}
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+    \PYG{n}{args} \PYG{o}{=} \PYG{n}{get\PYGZus{}args}\PYG{p}{()}
+    \PYG{c+c1}{\PYGZsh{} Correctly initialise the infinite iterable of players according to}
+    \PYG{c+c1}{\PYGZsh{} arguments}
+    \PYG{n}{vb} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{verbose}
+    \PYG{n}{do\PYGZus{}computer\PYGZus{}move} \PYG{o}{=} \PYG{k}{lambda} \PYG{o}{*}\PYG{n}{args}\PYG{p}{:} \PYG{n}{\PYGZus{}do\PYGZus{}computer\PYGZus{}move}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{n}{verbose}\PYG{o}{=}\PYG{n}{vb}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{args}\PYG{o}{.}\PYG{n}{computer}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{args}\PYG{o}{.}\PYG{n}{headstart}\PYG{p}{:}
+            \PYG{n}{players} \PYG{o}{=} \PYG{n}{cycle}\PYG{p}{([}\PYG{n}{do\PYGZus{}player\PYGZus{}move}\PYG{p}{,} \PYG{n}{do\PYGZus{}computer\PYGZus{}move}\PYG{p}{])}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{players} \PYG{o}{=} \PYG{n}{cycle}\PYG{p}{([}\PYG{n}{do\PYGZus{}computer\PYGZus{}move}\PYG{p}{,} \PYG{n}{do\PYGZus{}player\PYGZus{}move}\PYG{p}{])}
+    \PYG{k}{elif} \PYG{n}{args}\PYG{o}{.}\PYG{n}{battle}\PYG{p}{:}
+        \PYG{n}{players} \PYG{o}{=} \PYG{n}{repeat}\PYG{p}{(}\PYG{n}{do\PYGZus{}computer\PYGZus{}move}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{players} \PYG{o}{=} \PYG{n}{repeat}\PYG{p}{(}\PYG{n}{do\PYGZus{}player\PYGZus{}move}\PYG{p}{)}
+    \PYG{n}{play}\PYG{p}{([}\PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{*} \PYG{n}{args}\PYG{o}{.}\PYG{n}{size} \PYG{o}{**} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{players}\PYG{p}{,} \PYG{n}{args}\PYG{o}{.}\PYG{n}{noughts\PYGZus{}start}\PYG{p}{,} \PYG{n}{args}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}
+\end{Verbatim}

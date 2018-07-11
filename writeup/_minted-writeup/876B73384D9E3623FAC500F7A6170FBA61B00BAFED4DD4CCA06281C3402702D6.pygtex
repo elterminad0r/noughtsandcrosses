@@ -1,0 +1,62 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+Computer plays at (0, 0)
+   0   1   2
+ 0 X |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+   0   1   2
+ 0 X |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1   |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+You are playing as noughts
+Enter the position you want to play in \PYGZgt{} 1 0
+Computer plays at (0, 1)
+   0   1   2
+ 0 X | O |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+   0   1   2
+ 0 X | O |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X |   |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2   |   |
+
+You are playing as noughts
+Enter the position you want to play in \PYGZgt{} 0 2
+Computer plays at (1, 1)
+   0   1   2
+ 0 X | O |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X | X |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 O |   |
+
+   0   1   2
+ 0 X | O |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X | X |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 O |   |
+
+You are playing as noughts
+Enter the position you want to play in \PYGZgt{} 2 2
+Computer plays at (2, 1)
+   0   1   2
+ 0 X | O |
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 1 X | X | X
+  \PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+ 2 O |   | O
+
+Win: I\PYGZsq{}m sorry, Dave. I\PYGZsq{}m afraid I can\PYGZsq{}t do that.
+\end{Verbatim}

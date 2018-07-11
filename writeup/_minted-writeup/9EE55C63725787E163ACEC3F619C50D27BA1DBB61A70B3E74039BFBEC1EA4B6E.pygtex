@@ -1,0 +1,88 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Handling and verifying user input}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+\PYG{k+kn}{from} \PYG{n+nn}{base} \PYG{k+kn}{import} \PYG{n}{Win}
+\PYG{k+kn}{from} \PYG{n+nn}{formatting} \PYG{k+kn}{import} \PYG{n}{print\PYGZus{}board}\PYG{p}{,} \PYG{n}{syms}
+\PYG{k+kn}{from} \PYG{n+nn}{checking} \PYG{k+kn}{import} \PYG{n}{is\PYGZus{}run}
+
+\PYG{c+c1}{\PYGZsh{} boolean\PYGZhy{}indexed array to get a string name for player}
+\PYG{n}{name\PYGZus{}from\PYGZus{}bool} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}noughts\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}crosses\PYGZdq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} dictionary to translate symbols to internal representation of tile states}
+\PYG{n}{state\PYGZus{}from\PYGZus{}string} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZdq{}}\PYG{p}{:} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}x\PYGZsq{}}\PYG{p}{:} \PYG{n+nb+bp}{True}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}o\PYGZsq{}}\PYG{p}{:} \PYG{n+nb+bp}{False}\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{def} \PYG{n+nf}{isqrt}\PYG{p}{(}\PYG{n}{n}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Calculate the integer square root of a number using the \PYGZdq{}bit\PYGZhy{}shift\PYGZdq{}}
+\PYG{l+s+sd}{    algorithm.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{n} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{n}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{small} \PYG{o}{=} \PYG{n}{isqrt}\PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+m+mi}{1}
+        \PYG{n}{large} \PYG{o}{=} \PYG{n}{small} \PYG{o}{+} \PYG{l+m+mi}{1}
+        \PYG{k}{if} \PYG{n}{large} \PYG{o}{**} \PYG{l+m+mi}{2} \PYG{o}{\PYGZgt{}} \PYG{n}{n}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{small}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{large}
+
+\PYG{k}{def} \PYG{n+nf}{SquareInt}\PYG{p}{(}\PYG{n}{s}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Acts as a \PYGZdq{}parser\PYGZdq{} for perfect square integers for argparse}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{n} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{isqrt}\PYG{p}{(}\PYG{n}{n}\PYG{p}{)} \PYG{o}{**} \PYG{l+m+mi}{2} \PYG{o}{!=} \PYG{n}{n}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZob{}!r\PYGZcb{} is not a square number\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{s}\PYG{p}{))}
+    \PYG{k}{return} \PYG{n}{n}
+
+\PYG{k}{def} \PYG{n+nf}{SquareBoard}\PYG{p}{(}\PYG{n}{board}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Acts as a \PYGZdq{}parser\PYGZdq{} for strings representing square boards, similar to}
+\PYG{l+s+sd}{    SquareInt. Ignores all non\PYGZhy{}interesting characters and demands squareness.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{b} \PYG{o}{=} \PYG{p}{[}\PYG{n}{state\PYGZus{}from\PYGZus{}string}\PYG{p}{[}\PYG{n}{c}\PYG{p}{]} \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{board} \PYG{k}{if} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{state\PYGZus{}from\PYGZus{}string}\PYG{p}{]}
+    \PYG{k}{if} \PYG{n}{isqrt}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{b}\PYG{p}{))} \PYG{o}{**} \PYG{l+m+mi}{2} \PYG{o}{!=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{b}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}The board must be square\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{b}
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}pos}\PYG{p}{(}\PYG{n}{s}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Get position in 1d list from 2d coordinate reference}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{s}\PYG{o}{.}\PYG{n}{split}\PYG{p}{())}
+    \PYG{k}{if} \PYG{o+ow}{not} \PYG{n+nb}{all}\PYG{p}{(}\PYG{l+m+mi}{0} \PYG{o}{\PYGZlt{}=} \PYG{n}{c} \PYG{o}{\PYGZlt{}} \PYG{n}{n} \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)):}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Not in range [0,\PYGZob{}\PYGZcb{})\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{n}\PYG{p}{))}
+
+    \PYG{k}{return} \PYG{n}{y} \PYG{o}{*} \PYG{n}{n} \PYG{o}{+} \PYG{n}{x}
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}input}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{is\PYGZus{}crosses}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Get user input of where to play on a board.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}You are playing as \PYGZob{}\PYGZcb{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{name\PYGZus{}from\PYGZus{}bool}\PYG{p}{[}\PYG{n}{is\PYGZus{}crosses}\PYG{p}{]))}
+    \PYG{k}{while} \PYG{n+nb+bp}{True}\PYG{p}{:}
+        \PYG{k}{try}\PYG{p}{:}
+            \PYG{n}{mov} \PYG{o}{=} \PYG{n}{get\PYGZus{}pos}\PYG{p}{(}\PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Enter the position you want to play in \PYGZgt{} \PYGZdq{}}\PYG{p}{),} \PYG{n}{n}\PYG{p}{)}
+            \PYG{k}{if} \PYG{n}{board}\PYG{p}{[}\PYG{n}{mov}\PYG{p}{]} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}This position is already taken\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{except} \PYG{n+ne}{ValueError} \PYG{k}{as} \PYG{n}{ve}\PYG{p}{:}
+            \PYG{k}{print}\PYG{p}{(}\PYG{n}{ve}\PYG{p}{)}
+            \PYG{k}{continue}
+        \PYG{k}{return} \PYG{n}{mov}
+
+\PYG{k}{def} \PYG{n+nf}{do\PYGZus{}player\PYGZus{}move}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{is\PYGZus{}crosses}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Execute player move \PYGZhy{} assumes board is valid at start of turn.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{print\PYGZus{}board}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}
+    \PYG{k}{try}\PYG{p}{:}
+        \PYG{n}{pos} \PYG{o}{=} \PYG{n}{get\PYGZus{}input}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{is\PYGZus{}crosses}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}
+    \PYG{k}{except} \PYG{p}{(}\PYG{n+ne}{KeyboardInterrupt}\PYG{p}{,} \PYG{n+ne}{EOFError}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n}{Win}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZob{}\PYGZcb{} wins because \PYGZob{}\PYGZcb{} is a coward\PYGZdq{}}
+                \PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{syms}\PYG{p}{[}\PYG{o+ow}{not} \PYG{n}{is\PYGZus{}crosses}\PYG{p}{],} \PYG{n}{syms}\PYG{p}{[}\PYG{n}{is\PYGZus{}crosses}\PYG{p}{]))}
+    \PYG{n}{board}\PYG{p}{[}\PYG{n}{pos}\PYG{p}{]} \PYG{o}{=} \PYG{n}{is\PYGZus{}crosses}
+    \PYG{k}{if} \PYG{n}{is\PYGZus{}run}\PYG{p}{(}\PYG{n}{board}\PYG{p}{,} \PYG{n}{pos}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n}{Win}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZob{}\PYGZcb{} wins\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{syms}\PYG{p}{[}\PYG{n}{is\PYGZus{}crosses}\PYG{p}{]))}
+\end{Verbatim}
