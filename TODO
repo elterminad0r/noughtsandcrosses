@@ -1,4 +1,1 @@
-use is_run instead of get_state
-add warning to get_state
-fix board for n > 10
 add processing interface
