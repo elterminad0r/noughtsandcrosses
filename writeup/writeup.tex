@@ -551,6 +551,85 @@ Win: I'm sorry, Dave. I'm afraid I can't do that.
 \caption{Output of \texttt{play.py}}\label{lst:playout}
 \end{longlisting}
 
+    \section{Interface}
+
+    Also provided is an elegant (bare) interface written in Processing, for ease
+    of translation of Python and graphics primitives. It reuses most of the same
+    code, stripping out parts that print, and involved a slight rewrite of
+    \texttt{generate\_moves}, due to Python 2's alternative handling of finally
+    clauses. A diff of the library code adapted for graphical Python 2 is shown
+    in listing \ref{lst:procdiff}.
+
+    This was written with very little time to spare, so excuse my slightly
+    square crosses and sloppy code here.
+
+\begin{longlisting}
+\begin{minted}{diff}
+$ for i in *.py; do echo $i; diff $i src/$i; done
+base.py
+4a5,6
+> from enum import Enum
+>
+23c25
+< class State(object):
+---
+> class State(Enum):
+checking.py
+7a8
+> from formatting import get_board_template
+81a83
+>             print(board_temp.format(*dft), end="\n\n")
+computer.py
+5a6,8
+> from textwrap import indent
+> from traceback import extract_stack
+>
+7a11
+> from formatting import print_board, strfboard, syms
+72a77,80
+>     verbose and print(indent("Examining as {} {}:\n{}"
+>                          .format(syms[crosses_playing], depth,
+>                             indent(strfboard(board, n), ' ')),
+>                       ' ' * len(extract_stack())))
+74a83,84
+>         verbose and print(indent("State here: {}"
+>                   .format(state), " " * len(extract_stack())))
+76a87
+>         verbose and print(indent("Draw here", " " * len(extract_stack())))
+82c93
+<                    for move, board in generate_moves(board[:], crosses_playing)),
+---
+>                    for move, board in generate_moves(board, crosses_playing)),
+103a115
+>             verbose and print("Win incoming")
+105a118
+>             verbose and print("Draw forcable")
+117a131,132
+>     print("Computer plays at ({}, {})".format(move % n, move // n))
+>     print_board(board, n)
+interface.py
+5a6
+> from formatting import print_board, syms
+\end{minted}
+\caption{Diff of processing code vs core src}\label{lst:procdiff}
+\end{longlisting}
+
+    The drawing code is shown in listing \ref{lst:procpy}
+
+\begin{longlisting}
+\inputminted{python}{../noughtsandcrosses.pyde}
+\caption{Processing code to handle user interaction and drawing of board}\label{lst:procpy}
+\end{longlisting}
+
+    The game's modern design is shown in figure \ref{fig:proc}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{../win_screenshot_20180712_110639.png}
+\caption{The new way to play noughts and crosses}\label{fig:proc}
+\end{center}
+\end{figure}
+
     \section{Source}
 
     The full project in its directory structure, including this document (as a

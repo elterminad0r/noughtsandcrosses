@@ -16,4 +16,4 @@ A CLI noughts and crosses framework in Python. It looks something like this:
 	 ---+---+---
 	2   |   |   
 
-For now, it's assumed that play is between two humans. A potential future project is adding some kind of minmax based AI.
+Minmax is also implemented - see `writeup.pdf`.
