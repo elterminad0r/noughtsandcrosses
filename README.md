@@ -17,3 +17,5 @@ A CLI noughts and crosses framework in Python. It looks something like this:
 	2   |   |   
 
 Minmax is also implemented - see `writeup.pdf`.
+
+![screenshot](https://github.com/goedel-gang/noughtsandcrosses/blob/master/win_screenshot_20180712_110639.png)
