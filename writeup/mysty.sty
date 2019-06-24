@@ -1,0 +1,87 @@
+% Style file for my writeup
+
+% so the title can be accessed by fancyhdr (and is automatically correctly
+% spelled etc)
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\makeatother
+
+% more advanced handling of utf8 and fonts or something. apparently good to have
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+% Set document layout
+\RequirePackage[
+    margin=1in,
+    headheight=13.6pt]{geometry}
+
+% custom document header/footer
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\rightmark}
+\fancyfoot[L]{\theauthor\ (\thetitle)}
+\fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+
+% better fonts, apparently
+\RequirePackage{lmodern}
+
+% Allow hyperlinks in the text, but don't make them conspicuous. This also
+% automatically makes the table of contents and references in the text
+% clickable.
+\RequirePackage[hidelinks]{hyperref}
+
+% Maths stuff, superseding amsmath
+\RequirePackage{mathtools}
+% Set theory symbols
+\RequirePackage{amssymb}
+% Define an \abs{} command for absolute value (used for cardinality)
+\DeclarePairedDelimiter\abs\lvert\rvert
+% Define a pretty operator for big O. Generally it's a good idea to do things
+% like this as commands, so that you can easily change the typesetting later.
+\DeclareMathOperator\BigO{\mathcal O}
+
+% Don't indent the start of paragraphs
+\RequirePackage[parfill]{parskip}
+
+% Making pictures
+\RequirePackage{graphicx}
+
+\graphicspath{ {images/} }
+
+% Tables with pretty rules
+\RequirePackage{booktabs}
+
+% for better table of contents stuff, providing the \listof* commands and not
+% listing the tables in the table of contents
+\RequirePackage[nottoc,notlof,notlot]{tocbibind}
+
+% plotting mathematical functions (needs version request)
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.15}
+
+
+% bibliography management with square braces for citations
+\RequirePackage[square]{natbib}
+
+% listings of code
+\RequirePackage{minted}
+\setminted{breaklines,
+           breakbytokenanywhere,
+           linenos
+}
+\usemintedstyle{friendly}
+% bigger line numbers
+\renewcommand\theFancyVerbLine{\footnotesize\arabic{FancyVerbLine}}
+
+% that can break across pages while being captioned figures
+\RequirePackage{caption}
+\newenvironment{longlisting}
+{\addvspace{\baselineskip}\captionsetup{type=listing}}
+{\addvspace{\baselineskip}}
+
+% allow maths to break across pages
+\allowdisplaybreaks

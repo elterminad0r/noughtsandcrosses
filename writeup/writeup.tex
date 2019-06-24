@@ -1,113 +1,8 @@
-\documentclass[a4paper,11pt]{article}
-\title{An efficient minimax implementation for noughts and crosses}
+\documentclass[fleqn,a4paper,11pt]{article}
+\title{Noughts and Crosses}
 \author{Izaak van Dongen}
 
-% so the title can be accessed by fancyhdr (and is automatically correctly
-% spelled etc)
-\makeatletter
-\let\thetitle\@title
-\makeatother
-
-% make the document take up more of the page
-\usepackage[margin=1in,headheight=13.6pt]{geometry}
-
-% no paragraph indent
-\usepackage[parfill]{parskip}
-
-% custom document header/footer
-\usepackage{fancyhdr}
-\usepackage{lastpage}
-
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\thetitle}
-\rhead{Izaak van Dongen}
-\rfoot{Page \thepage\ of \pageref{LastPage}}
-
-% pretty table rules and multirow entries
-\usepackage{booktabs}
-\usepackage{multirow}
-
-% plotting mathematical functions (needs version request)
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.15}
-
-% \url function and clickable table of contents. no ugly red boxes though
-\usepackage[hidelinks]{hyperref}
-
-% maths symbols and other stuff (supersedes the ams* packages)
-\usepackage{mathtools}
-% provides \abs
-\usepackage{commath}
-
-% For framing definitions
-\usepackage[framemethod=tikz]{mdframed}
-\usepackage[most]{tcolorbox}
-
-\newtcolorbox{definition}{
-freelance,
-before=\par\vspace{2\bigskipamount}\noindent,
-after=\par\bigskip,
-frame code={
-  \node[
-  anchor=south west,
-  inner xsep=8pt,
-  xshift=8pt,
-  rounded corners=5pt,
-  font=\bfseries\color{white},
-  fill=gray] at (frame.north west) (tit) {\strut Definition:};
-  \draw[
-  line width=3pt,
-  rounded corners=5pt,gray
-  ] (tit.west) -| (frame.south west) -- ([xshift=15pt]frame.south west);
-},
-interior code={},
-top=2pt
-}
-
-% for better table of contents stuff, providing the \listof* commands and not
-% listing the tables in the table of contents
-\usepackage[nottoc,notlof,notlot]{tocbibind}
-
-% more advanced handling of utf8 and fonts or something. apparently good to have
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
-% bibliography management with square braces for citations
-\usepackage[square]{natbib}
-
-% graphics, like eps files and stuff (supersedes graphics)
-\usepackage{graphicx}
-
-% used to horizontally align floats
-\usepackage{subfig}
-
-% used for figures
-\usepackage{float}
-
-% needed for colouring and stuff (xcolor supersedes color)
-\usepackage{xcolor}
-
-\definecolor{codegreen}{rgb}{ 0,0.6,0}
-
-% listings of code
-\usepackage{minted}
-\setminted{breaklines,
-           breakbytokenanywhere,
-           linenos
-}
-\usemintedstyle{friendly}
-% bigger line numbers
-\renewcommand\theFancyVerbLine{\footnotesize\arabic{FancyVerbLine}}
-
-% that can break across pages while being captioned figures
-\usepackage{caption}
-\newenvironment{longlisting}
-{\addvspace{\baselineskip}\captionsetup{type=listing}}
-{\addvspace{\baselineskip}}
-
-% allow maths to break across pages
-\allowdisplaybreaks
+\usepackage{mysty}
 
 \begin{document}
     \maketitle\thispagestyle{empty} % no page number under title
@@ -125,19 +20,19 @@ top=2pt
 
     Internally, the board is represented as one-dimensional array (arraylist) of
     any of \mintinline{python}|{None, True, False}|, corresponding to
-    $\{\text{Empty, Crosses, Noughts}\}$. The single dimensionality is actually
+    \(\{\text{Empty, Crosses, Noughts}\}\). The single dimensionality is actually
     pretty natural, as a noughts and crosses board is not fundamentally a list
     of lists, but a set of tiles with some subsets considered to be ``in a
     row''. The board is enumerated from the top-left tile, left-to-right,
-    top-to-bottom. When x-y indexing is used, the co-ordinate $(x,y)$
-    corresponds to the index $3y+x$. This has a couple of nice properties which
+    top-to-bottom. When x-y indexing is used, the co-ordinate \((x,y)\)
+    corresponds to the index \(3y+x\). This has a couple of nice properties which
     will come up later.
 
     Minmax is implemented by a single ``optimise'' function that recursively
     searches the tree, with several specialisations over general minmax. These
     include for example not having to keep maximising after encounting a win, as
     the evaluation heuristic is known to only be able to evaluate the board as
-    $\{\text{win}, \text{lose}, \text{draw}\}$.
+    \(\{\text{win}, \text{lose}, \text{draw}\}\).
 
     The tests for winning conditions are implemented in listing
     \ref{lst:checkingpy}. They work by instantiating a single list of indices
@@ -466,7 +361,7 @@ random 5x5 board:
 
     The only other application of the \texttt{--battle} mode is to change the
     size of the board to anything more than 3, and watch your CPU melt. This is
-    due to the size of the search tree growing with $O(2^{(n^2)})$, which,
+    due to the size of the search tree growing with \(\BigO(2^{(n^2)})\), which,
     however, nicely implemented your tree search is, is a bit of a party-pooper.
 
     A sample of play is provided in listing \ref{lst:playout}
