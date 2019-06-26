@@ -1,5 +1,3 @@
-# vim: ft=python
-
 from random import choice
 
 from computer import get_computer_move
