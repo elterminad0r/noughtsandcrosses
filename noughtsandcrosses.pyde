@@ -6,21 +6,26 @@ from checking import is_run
 DRAW_WIDTH = 0.8
 
 def draw_board(board, n, w):
+    mx, my = int(3 * mouseX / width), int(3 * mouseY / height)
+    pos = 3 * my + mx
     pushMatrix()
     scale(w)
     for ind, tile in enumerate(board):
         if tile is not None:
-            x, y = ind % n, ind // n
+            y, x = divmod(ind, n)
+            fill(255)
             if tile:
                 rect(x + 0.5, y + 0.5, DRAW_WIDTH, DRAW_WIDTH)
             else:
                 ellipse(x + 0.5, y + 0.5, DRAW_WIDTH, DRAW_WIDTH)
+        elif ind == pos:
+            fill(100)
+            ellipse(mx + 0.5, my + 0.5, DRAW_WIDTH, DRAW_WIDTH)
     popMatrix()
 
 def setup():
     global board, gameover
     size(800, 800)
-    fill(255)
     rectMode(CENTER)
     noStroke()
     background(0)
